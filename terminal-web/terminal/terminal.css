@@ -1,0 +1,83 @@
+.terminal-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(30, 30, 30, 0.8);
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.terminal-container {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    font-family: monospace;
+    padding: 10px;
+    overflow: auto;
+}
+
+.terminal-container.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    display: block;
+}
+
+.terminal-container.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: block;
+}
+
+#openTerminalBtn {
+    padding: 8px 15px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#terminalDisplayMode {
+    padding: 8px;
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+.command-line {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.prompt {
+    color: #4CAF50;
+    margin-right: 5px;
+}
+
+.command-input {
+    background: transparent;
+    border: none;
+    color: #f0f0f0;
+    font-family: monospace;
+    flex-grow: 1;
+    outline: none;
+}
+
+.output {
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+}
+
+.error {
+    color: #ff5555;
+}

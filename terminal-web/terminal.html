@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Linux Terminal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="terminal/terminal.css">
+    <script type="text/javascript" src="terminal/terminal.js"></script>
+    <style>
+        .terminal-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(30, 30, 30, 0.8);
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="content"></div>
+    <div class="terminal-controls">
+        <button id="openTerminalBtn">Open Terminal</button>
+        <select id="terminalDisplayMode">
+            <option value="bottom">Bottom</option>
+            <option value="popup">Popup</option>
+        </select>
+    </div>
+    <div class="terminal-container" id="terminal"></div>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            const terminalContainer = document.getElementById('terminal');
+            const openTerminalBtn = document.getElementById('openTerminalBtn');
+            const displayModeSelect = document.getElementById('terminalDisplayMode');
+            let isTerminalOpen = false;
+
+            // 初始化terminal容器样式
+            terminalContainer.className = 'terminal-container bottom';
+            terminalContainer.style.display = 'none';
+
+            const terminal = new Terminal({
+                handleCommand: handle_command,
+                placeholder: 'Enter command',
+            });
+            terminalContainer.appendChild(terminal.element);
+
+            terminal.logHTML(
+                '<p>Type [list] to get a list of all commands, [help] show help messages.</p>'
+            );
+
+            openTerminalBtn.addEventListener('click', () => {
+                if (!isTerminalOpen) {
+                    const mode = displayModeSelect.value;
+                    terminalContainer.className = 'terminal-container ' + mode;
+                    terminalContainer.style.display = 'block';
+                    openTerminalBtn.textContent = 'Close Terminal';
+                    isTerminalOpen = true;
+                    terminal.input.focus();
+                } else {
+                    terminalContainer.style.display = 'none';
+                    openTerminalBtn.textContent = 'Open Terminal';
+                    isTerminalOpen = false;
+                }
+            });
+
+            function handle_command(command) {
+                if (command === 'clear') {
+                    terminal.clear();
+                } else {
+                    terminal.log(`Executing command: ${command}`);
+                    terminal.error(`Unknown command: ${command}`);
+
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
